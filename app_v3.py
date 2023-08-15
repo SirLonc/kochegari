@@ -10,7 +10,7 @@ MAIN_PATH = 'data.csv'
 CHANNEL_PATH = 'binipharm.csv'
 
 # Подставьте ваш ключ API GPT-3
-openai.api_key = "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"
+openai.api_key = "<SECRET KEY>"
 
 
 # Кэширование загрузки данных
