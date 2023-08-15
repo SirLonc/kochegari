@@ -16,7 +16,7 @@ openai.api_key = st.secrets["OPENAI_API_KEY"]
 
 
 # Кэширование загрузки данных
-#@st.cache_data
+@st.cache_data
 def load_data(url_main, url_channel):
     url_main = url_main.replace("/edit#gid=", "/export?format=csv&gid=")
     url_channel = url_channel.replace("/edit#gid=", "/export?format=csv&gid=")
