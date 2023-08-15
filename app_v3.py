@@ -9,13 +9,17 @@ import openai  # Импорт библиотеки GPT-3
 MAIN_PATH = 'data.csv'
 CHANNEL_PATH = 'binipharm.csv'
 
+SHEET_MAIN_PATH = 'https://docs.google.com/spreadsheets/d/1Rw_Pxv2dgPR8S8UNqUCmoCUBa4NeUQH1/edit#gid=1549281357'
+SHEET_CHANNEL_PATH = 'https://docs.google.com/spreadsheets/d/1zenrlWJ7QAuaXJAdmYi3j2t-yoEvtfujAp2UhDmzh9E/edit#gid=1855222089'
 # Подставьте ваш ключ API GPT-3
-openai.api_key = "<SECRET KEY>"
+openai.api_key = st.secrets["OPENAI_API_KEY"]
 
 
 # Кэширование загрузки данных
-@st.cache_data
+#@st.cache_data
 def load_data(url_main, url_channel):
+    url_main = url_main.replace("/edit#gid=", "/export?format=csv&gid=")
+    url_channel = url_channel.replace("/edit#gid=", "/export?format=csv&gid=")
     data = pd.read_csv(url_main)
     data['data_kommunikacii'] = data.data_kommunikacii.astype("datetime64[ns]")
     data['ctr'] = (data.clicked / data.opened)
@@ -46,7 +50,7 @@ def load_data(url_main, url_channel):
     return data_brand_exp, data_channel_brand_exp
 
 
-df, df_channel = load_data(MAIN_PATH, CHANNEL_PATH)
+df, df_channel = load_data(SHEET_MAIN_PATH, SHEET_CHANNEL_PATH)
 
 st.title("Interactive Dashboard")
 
